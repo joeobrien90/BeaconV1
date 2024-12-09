@@ -1,0 +1,154 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 56px;
+            height: 100%;
+            background-color: #eee;
+
+        }
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+        .main-content {
+
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .tile {
+            text-align: center;
+            padding: 15px;
+            margin:10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+
+            font-size: 35px;
+            font-family: Arial,Helvetica, sans-serif;
+            background:linear-gradient(to right, #5797c8, #57c89a);
+            /*linear-gradient(to right, #f32170, #ff6b08,#cf23cf, #eedd44); */
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            font-weight:bold;
+            margin-bottom:0px;
+        }
+        h2 {
+
+            font-size: 16px;
+            font-family: Arial,Helvetica, sans-serif;
+            background:linear-gradient(to right, #5797c8, #57c89a);
+            /*linear-gradient(to right, #f32170, #ff6b08,#cf23cf, #eedd44); */
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            font-weight:bold;
+            margin-bottom:0px;
+        }
+        iframe {
+            width: 100%;
+            height: 1000px;
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background-color: #57c89a;
+            border-color: #57c89a;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" style="padding-left:0px;" href="#">
+        <img id="peplogo" src="https://arbys.peporders.com/Themes/CoreTheme/Content/images/pep-logo-white.svg" style="max-height:36px;vertical-align:middle"> </a>
+    <a class="navbar-brand" style="padding-left:0px;" href="#"><h1>
+        Beacon 360</h1></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<!-- Main Content -->
+<div class="main-content">
+
+    <div class="container py-5 py-sm-7">
+        
+        <div class="mx-auto" style="max-width: 30rem;">
+            <!-- Card -->
+            <div class="card card-lg mb-5">
+                <div class="card-body">
+                    <!-- Form -->
+                    <div class="container-fluid">
+
+                        <div class="row"></div>
+                        <div class="row"></div>
+
+                        <div class="">
+                            <form id="UserNameForm">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <input type="email" class="form-control" id="userEmail" placeholder="Email Address" required="required">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button id="userLoginButton" class="btn btn-primary form-control  ">Log In <i class="fa fa-sign-in" aria-hidden="true"></i> </button>
+                                    </div>
+                                </div>
+                            </form>
+                           
+                            <div class="col col-sm-4"></div>
+                        </div>
+
+                        <div class="row pepDisclaimer">
+                            <div class="col col-sm-2"></div>
+                            <div class="col col-sm-8 dashCenter pepVersionGray">
+
+                            </div>
+                            <div class="col col-sm-2"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Card -->
+
+            <!-- End Footer -->
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    document.getElementById("userLoginButton").onclick = function () {
+        location.href = "http://localhost:63342/BeaconMock%20V1/Coupons/mainnav.html";
+    };
+</script>
+
+
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

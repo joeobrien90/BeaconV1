@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Count</title>
+    <!-- Bootstrap CSS from Bootswatch Cerulean Theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .category-header {
+            background-color: #f8f9fa;
+        }
+        .unit-header {
+            background-color: #e9ecef; /* Different shade of grey */
+        }
+        .total-row {
+            font-weight: bold;
+        }
+        .offer-cell {
+            text-align: left;
+            color: #333;
+            font-size: x-small;
+        }
+        th {
+            background-color: #eee;
+        }
+        .table td {
+            padding: 0.55rem;
+        }
+    </style>
+</head>
+<body>
+
+<div >
+    <div class="row mb-3 align-items-center">
+        <div class="col-md-7">
+            <h2>Projected Spend (Tactic x Business Unit)</h2>
+        </div>
+        
+        <div class="col-md-2">
+            <input id="startDate" class="form-control" type="date" value="02/01/2024"/>
+        </div>
+        <div class="col-md-1">
+            to
+        </div>
+        <div class="col-md-2">
+            <input id="endDate" class="form-control" type="date" value="October"/>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead  class="thead-dark">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>PC</th>
+            <th>B&W</th>
+            <th>Nutrition</th>
+            <th>Ice Cream</th>
+            <th>Home Care</th>
+            <th>Totals</th>
+            <th>% of Total</th>
+            <!-- Add more months as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Business Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="2"> FSI</td>
+            <td class="category-header">BTL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="2">20%</td>
+        </tr>
+        <tr class="unit-header">
+
+            <td class="category-header">ATL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="2"> Digital Cpns</td>
+            <td class="category-header">BTL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="2">5%</td>
+        </tr>
+        <tr class="unit-header">
+
+            <td class="category-header">ATL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="2"> Ibotta</td>
+            <td class="category-header">BTL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="2">10%</td>
+        </tr>
+        <tr class="unit-header">
+
+            <td class="category-header">ATL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="2"> Fetch</td>
+            <td class="category-header">BTL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="2">24%</td>
+        </tr>
+        <tr class="unit-header">
+
+            <td class="category-header">ATL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="2"> InStore</td>
+            <td class="category-header">BTL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="2">5%</td>
+        </tr>
+        <tr class="unit-header">
+
+            <td class="category-header">ATL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr class="unit-header total-row">
+            <td rowspan="2"> BU Total</td>
+            <td class="category-header">BTL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="2">20%</td>
+        </tr>
+        <tr class="unit-header total-row">
+            <td class="category-header">ATL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<canvas id="myChart" width="800" height="400" style="margin-top:100px;"></canvas>
+
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Function to get background color based on value
+    function getBackgroundColor(value) {
+        const greenIntensity = Math.round((120 * value) / 100000);
+        if(value == 0){
+            return `rgb(255,255,255)`;
+        }
+        return `rgb(255,${255 - greenIntensity}, 150)`;
+    }
+
+    // Function to populate offer cells with random values from 0 to 10
+    function populateOfferCells() {
+        const offerCells = document.querySelectorAll(".offer-cell");
+
+        offerCells.forEach(cell => {
+            // Generate random value from 0 to 10var value = 0;
+            var value = 0;
+            if (Math.floor(Math.random() * 10) <= 6) {
+                value = Math.floor(Math.random() * 100001)
+            }
+            const formattedNumber = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(value);
+            cell.textContent = formattedNumber;
+            cell.style.backgroundColor = getBackgroundColor(value);
+        });
+    }
+
+    // Populate cells on page load
+    document.addEventListener("DOMContentLoaded", populateOfferCells);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['FSI', 'Digital Cpns', 'Ibotta', 'Fetch', 'Instore'],
+            datasets: [
+                {
+                    label: 'PC - ATL',
+                    data: [15, 17, 50, 7, 22],
+                    backgroundColor: '#3e95cd', // Blue
+                    stack: 'ATL'
+                },
+                {
+                    label: 'B&W - ATL',
+                    data: [0, 8, 9, 20, 0],
+                    backgroundColor: '#8e5ea2', // Purple
+                    stack: 'ATL'
+                },
+                {
+                    label: 'Nutrition - ATL',
+                    data: [4, 0, 9, 0, 7],
+                    backgroundColor: '#3cba9f', // Green
+                    stack: 'ATL'
+                },
+                {
+                    label: 'Ice Cream - ATL',
+                    data: [0, 5, 2, 24, 0],
+                    backgroundColor: '#e8c3b9', // Beige
+                    stack: 'ATL'
+                },
+                {
+                    label: 'Home Care - ATL',
+                    data: [1, 0, 13, 0, 3],
+                    backgroundColor: '#c45850', // Red
+                    stack: 'ATL'
+                },
+                {
+                    label: 'PC - BTL',
+                    data: [0, 9, 10, 13, 0],
+                    backgroundColor: 'rgba(62, 149, 205, 0.3)', // Transparent Blue
+                    stack: 'BTL'
+                },
+                {
+                    label: 'B&W - BTL',
+                    data: [5, 22, 6, 0, 5],
+                    backgroundColor: 'rgba(142, 94, 162, 0.3)', // Transparent Purple
+                    stack: 'BTL'
+                },
+                {
+                    label: 'Nutrition - BTL',
+                    data: [0, 5, 2, 8, 0],
+                    backgroundColor: 'rgba(60, 186, 159, 0.3)', // Transparent Green
+                    stack: 'BTL'
+                },
+                {
+                    label: 'Ice Cream - BTL',
+                    data: [3, 0, 3, 0, 4],
+                    backgroundColor: 'rgba(232, 195, 185, 0.3)', // Transparent Beige
+                    stack: 'BTL'
+                },
+                {
+                    label: 'Home Care - BTL',
+                    data: [0, 3, 0, 4, 0],
+                    backgroundColor: 'rgba(196, 88, 80, 0.3)', // Transparent Red
+                    stack: 'BTL'
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        filter: (legendItem, chartData) => (legendItem.text.includes('ATL'))
+                    }
+                }
+            },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                    title: {
+                        display: true,
+                        text: 'Segments'
+                    }
+                },
+                y: {
+                    ticks: {
+                        stepSize: 20,
+                        autoSkip: false
+                    },
+                    stacked: true,
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Dollars (in millions)'
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
+
+
+

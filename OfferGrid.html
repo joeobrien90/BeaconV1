@@ -1,0 +1,420 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Details Grid</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .table-container {
+            /*width: 1000px;*/
+            overflow-x: auto; /* Enable horizontal scroll */
+            margin-bottom: 20px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+        .actual-value {
+            font-weight: bold;
+        }
+        .actual-value.red {
+            color: red;
+        }
+        .actual-value.green {
+            color: green;
+        }
+        .edit-button {
+            position: sticky;
+            right: 0;
+            background-color: white;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between; /* Align header left, other section right */
+            align-items: center;
+        }
+        .right-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .right-section > * { /* Space elements within right section */
+            margin-left: 10px;
+        }
+        .right-section > select { /* Space elements within right section */
+            width:130px;
+        }
+        .right-section > *:first-child { /* Remove margin from first element */
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="">
+    <div class="table-container">
+        
+        <div class="row mb-3 header-row">  <!-- Added header-row class -->
+            <div class="col-md-4">
+                <div class="right-section justify-content-front ">
+                <h2 style="margin-right: 20px;">Offers</h2>
+                    <button id="btn" class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Create New Offer</button>
+                    <button type="button"  id="btnpending" class="btn btn-secondary">
+                        Unassigned <span class="badge badge-danger">9</span>
+                        <span class="sr-only">unread messages</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-8 ">
+                <div class="right-section justify-content-end ">  <!-- Added right-section class -->
+                    
+                    
+                    
+                    <div>
+                        <input id="startDate2" class="form-control" type="date" value="2024-02-01"/>
+                    </div>
+                    <div>to</div>
+                    <div>
+                        <input id="endDate2" class="form-control" type="date" value="2024-10-26"/>
+                    </div>
+                    <div >
+                        <input type="search" placeholder="Search..." class="form-control" />
+                        
+                    </div>
+                    <select class="form-control" id="statusDropdown">
+                        <option value="all">Vendor</option>
+                        <option value="digitalCoupons">Brand</option>
+                        <option value="printCoupons">BU</option>
+                        <option value="inStoreDisplays">Market Category</option>
+                    </select>
+                    <select class="form-control" id="statusDropdown">
+                        <option value="all">Market Category</option>
+                        <option value="digitalCoupons">Brand</option>
+                        <option value="printCoupons">BU</option>
+                        <option value="inStoreDisplays">Market Category</option>
+                    </select>
+                    <select class="form-control" id="statusDropdown">
+                        <option value="all">Status</option>
+                        <option value="digitalCoupons">Approved</option>
+                        <option value="printCoupons">Planning</option>
+                        <option value="inStoreDisplays">Contracted</option>
+                    </select>
+                    
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#columnModal">
+                        <i class="fas fa-columns"></i> Columns
+                    </button>
+
+
+
+                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Options</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="draggable-list" id="sortable">
+                                        <li><input type="checkbox" id="businessUnit" value="Business Unit" checked> <label for="businessUnit">Business Unit</label></li>
+                                        <li><input type="checkbox" id="marketCategory" value="Market Category" checked> <label for="marketCategory">Market Category</label></li>
+                                        <li><input type="checkbox" id="tactic" value="Tactic" checked> <label for="tactic">Tactic</label></li>
+                                        <li><input type="checkbox" id="brand" value="Brand"> <label for="brand">Brand</label></li>
+                                        <li><input type="checkbox" id="retailer" value="Retailer"> <label for="retailer">Retailer</label></li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="columnModal" tabindex="-1" aria-labelledby="columnModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="columnModalLabel">Select Columns</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="columnForm">
+                                        <!-- Checkboxes for columns -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="offerCode">
+                                            <label class="form-check-label" for="offerCode">Offer Code</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="status">
+                                            <label class="form-check-label" for="status">Status</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="brand">
+                                            <label class="form-check-label" for="brand">Brand</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="tactic">
+                                            <label class="form-check-label" for="tactic">Tactic</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="vendor">
+                                            <label class="form-check-label" for="vendor">Vendor</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="retailer">
+                                            <label class="form-check-label" for="retailer">Retailer</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="startDate">
+                                            <label class="form-check-label" for="startDate">Start Date</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="endDate">
+                                            <label class="form-check-label" for="endDate">End Date</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="expDate">
+                                            <label class="form-check-label" for="expDate">Exp Date</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="description">
+                                            <label class="form-check-label" for="description">Description</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="value">
+                                            <label class="form-check-label" for="value">Value</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="buyQty">
+                                            <label class="form-check-label" for="buyQty">Buy Qty</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="distQty">
+                                            <label class="form-check-label" for="distQty">Dist Qty</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="redemptPercent">
+                                            <label class="form-check-label" for="redemptPercent">Redempt %</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="numRedeemed">
+                                            <label class="form-check-label" for="numRedeemed"># Redeemed</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="numMoved">
+                                            <label class="form-check-label" for="numMoved"># Moved</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="atlCost">
+                                            <label class="form-check-label" for="atlCost">ATL Cost</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="btlCost">
+                                            <label class="form-check-label" for="btlCost">BTL Cost</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="edit">
+                                            <label class="form-check-label" for="edit">Edit</label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Offer Code</th>
+                <th>Status</th>
+                <th>Brand</th>
+                <th>Tactic</th>
+                <th>Vendor</th>
+                <th>Retailer</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Exp Date</th>
+                <th>Description</th>
+                <th>Value</th>
+                <th>Buy Qty</th>
+                <th>Dist Qty</th>
+                <th>Redempt %</th>
+                <th># Redeemed</th>
+                <th># Moved</th>
+                <th>ATL Cost</th>
+                <th>BTL Cost</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>OC12345</td>
+                <td>Active</td>
+                <td>Brand A</td>
+                <td>Promotion</td>
+                <td>Vendor X</td>
+                <td>Retailer Y</td>
+                <td>2023-01-01</td>
+                <td>2023-12-31</td>
+                <td>2024-01-15</td>
+                <td>Special Offer</td>
+                <td>$10</td>
+                <td>2</td>
+                <td>1000 / <span class="actual-value red">900</span></td>
+                <td>50% / <span class="actual-value green">55%</span></td>
+                <td>500 / <span class="actual-value red">450</span></td>
+                <td>800 / <span class="actual-value green">850</span></td>
+                <td>$5000 / <span class="actual-value red">$4800</span></td>
+                <td>$3000 / <span class="actual-value green">$3200</span></td>
+                <td class="edit-button"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</button></td>
+            </tr>
+            <tr>
+                <td>OC12346</td>
+                <td>Pending</td>
+                <td>Brand B</td>
+                <td>Discount</td>
+                <td>Vendor Y</td>
+                <td>Retailer Z</td>
+                <td>2023-02-01</td>
+                <td>2023-11-30</td>
+                <td>2024-02-15</td>
+                <td>Clearance Sale</td>
+                <td>$15</td>
+                <td>3</td>
+                <td>1500 / </td>
+                <td>60% / </td>
+                <td>900 / </td>
+                <td>1200 / </td>
+                <td>$6000 / </td>
+                <td>$3500 / </td>
+                <td class="edit-button"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</button></td>
+            </tr>
+            <tr>
+                <td>OC12347</td>
+                <td>Expired</td>
+                <td>Brand C</td>
+                <td>Coupon</td>
+                <td>Vendor Z</td>
+                <td>Retailer X</td>
+                <td>2023-03-01</td>
+                <td>2023-10-31</td>
+                <td>2024-03-15</td>
+                <td>End of Season</td>
+                <td>$20</td>
+                <td>4</td>
+                <td>2000 / <span class="actual-value red">1900</span></td>
+                <td>70% / <span class="actual-value green">72%</span></td>
+                <td>1400 / <span class="actual-value red">1350</span></td>
+                <td>1600 / <span class="actual-value green">1650</span></td>
+                <td>$7000 / <span class="actual-value red">$6800</span></td>
+                <td>$4000 / <span class="actual-value green">$4200</span></td>
+                <td class="edit-button"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</button></td>
+            </tr>
+            <tr>
+                <td>OC12349</td>
+                <td>Pending</td>
+                <td>Brand E</td>
+                <td>Promotion</td>
+                <td>Vendor V</td>
+                <td>Retailer U</td>
+                <td>2023-05-01</td>
+                <td>2023-08-31</td>
+                <td>2024-05-15</td>
+                <td>Limited Time</td>
+                <td>$30</td>
+                <td>6</td>
+                <td>3000 / </td>
+                <td>90% / </td>
+                <td>2700 / </td>
+                <td>2400 / </td>
+                <td>$9000 / </td>
+                <td>$5000 / </td>
+                <td class="edit-button"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</button></td>
+            </tr>
+            <tr>
+                <td>OC12350</td>
+                <td>Expired</td>
+                <td>Brand F</td>
+                <td>Discount</td>
+                <td>Vendor U</td>
+                <td>Retailer T</td>
+                <td>2023-06-01</td>
+                <td>2023-07-31</td>
+                <td>2024-06-15</td>
+                <td>Flash Sale</td>
+                <td>$35</td>
+                <td>7</td>
+                <td>3500 / <span class="actual-value green">3600</span></td>
+                <td>95% / <span class="actual-value red">93%</span></td>
+                <td>3300 / <span class="actual-value green">3350</span></td>
+                <td>2800 / <span class="actual-value red">2750</span></td>
+                <td>$10000 / <span class="actual-value green">$10200</span></td>
+                <td>$5500 / <span class="actual-value red">$5400</span></td>
+                <td class="edit-button"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</button></td>
+            </tr>
+            <tr>
+                <td>OC12352</td>
+                <td>Pending</td>
+                <td>Brand H</td>
+                <td>Rebate</td>
+                <td>Vendor S</td>
+                <td>Retailer R</td>
+                <td>2023-08-01</td>
+                <td>2023-05-31</td>
+                <td>2024-08-15</td>
+                <td>Year-End Deal</td>
+                <td>$45</td>
+                <td>9</td>
+                <td>4500 / <span class="actual-value green">4600</span></td>
+                <td>75% / <span class="actual-value red">73%</span></td>
+                <td>4200 / <span class="actual-value green">4250</span></td>
+                <td>3600 / <span class="actual-value red">3550</span></td>
+                <td>$12000 / <span class="actual-value green">$12200</span></td>
+                <td>$6500 / <span class="actual-value red">$6400</span></td>
+                <td class="edit-button"><button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById("btn").onclick = function () {
+        
+        location.href = "http://localhost:63342/BeaconMock%20V1/Coupons/OfferCreate.html";
+    };
+
+
+    document.getElementById("btnpending").onclick = function () {
+
+        location.href = "http://localhost:63342/BeaconMock%20V1/Coupons/Offergridpending.html";
+    };
+
+    
+    
+</script>
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

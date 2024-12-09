@@ -1,0 +1,388 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create/Edit Offer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .readonly-input {
+            background-color: #e9ecef; /* Light gray background for read-only fields */
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="width:800px;">
+    <h1>Create/Edit Offer</h1>
+    <form>
+
+        <!-- Offer Status -->
+        <div class="form-group">
+            <label for="offerStatus">Offer Status</label>
+            <select class="form-control" id="offerStatus">
+                <option>Active</option>
+                <option>Inactive</option>
+                <option>Pending</option>
+            </select>
+        </div>
+
+        <!-- Brand -->
+        <div class="form-group">
+            <label for="brand">Brand</label>
+            <select class="form-control" id="brand">
+                <option>Brand A</option>
+                <option>Brand B</option>
+                <option>Brand C</option>
+            </select>
+        </div>
+
+        <!-- Campaign Start Date -->
+        <div class="form-group">
+            <label for="campaignStartDate">Campaign Start Date</label>
+            <input type="date" class="form-control" id="campaignStartDate">
+        </div>
+
+        <!-- Campaign End Date -->
+        <div class="form-group">
+            <label for="campaignEndDate">Campaign End Date</label>
+            <input type="date" class="form-control" id="campaignEndDate">
+        </div>
+
+        <!-- Barcode Expiration Date -->
+        <div class="form-group">
+            <label for="barcodeExpirationDate">Barcode Expiration Date</label>
+            <input type="date" class="form-control" id="barcodeExpirationDate">
+        </div>
+
+        <!-- Offer Code -->
+        <div class="form-group">
+            <label for="offerCode">Offer Code</label>
+            <input type="number" class="form-control" id="offerCode">
+        </div>
+
+        <!-- Campaign or Offer ID -->
+        <div class="form-group">
+            <label for="campaignOfferID">Campaign or Offer ID</label>
+            <input type="number" class="form-control" id="campaignOfferID">
+        </div>
+
+        <!-- Products Included -->
+        <div class="form-group">
+            <label for="productsIncluded">Products Included</label>
+            <textarea  rows="1" class="form-control" id="productsIncluded" rows="3"></textarea>
+        </div>
+
+        <!-- Exclusions -->
+        <div class="form-group">
+            <label for="exclusions">Exclusions</label>
+            <textarea  rows="1" class="form-control" id="exclusions" rows="3"></textarea>
+        </div>
+
+        <!-- Notes -->
+        <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea rows="1"  class="form-control" id="notes" rows="3"></textarea>
+        </div>
+
+        <!-- Offer Description -->
+        <div class="form-group">
+            <label for="offerDescription">Offer Description</label>
+            <textarea  rows="1" class="form-control readonly-input" id="offerDescription" rows="3" readonly></textarea>
+        </div>
+
+        <!-- Vendor -->
+        <div class="form-group">
+            <label for="vendor">Vendor</label>
+            <select class="form-control" id="vendor">
+                <option>Vendor X</option>
+                <option>Vendor Y</option>
+                <option>Vendor Z</option>
+            </select>
+        </div>
+
+        <!-- Retailer -->
+        <div class="form-group">
+            <label for="retailer">Retailer</label>
+            <select class="form-control" id="retailer">
+                <option>Retailer 1</option>
+                <option>Retailer 2</option>
+                <option>Retailer 3</option>
+            </select>
+        </div>
+
+        <!-- Face Value -->
+        <div class="form-group">
+            <label for="faceValue">Face Value</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="faceValue">
+            </div>
+        </div>
+
+        <!-- Buy Qty -->
+        <div class="form-group">
+            <label for="buyQty">Buy Qty</label>
+            <input type="number" class="form-control" id="buyQty">
+        </div>
+
+
+        <!-- Tactic Type -->
+        <div class="form-group">
+            <label for="tacticType">Tactic Type</label>
+            <select class="form-control" id="tacticType">
+                <option>Digital Coupon</option>
+                <option>Print Coupon</option>
+                <option>In-Store Display</option>
+            </select>
+        </div>
+
+        <!-- Unlimited Clips? -->
+        <div class="form-group">
+            <label for="unlimitedClips">Unlimited Clips?</label>
+            <select class="form-control" id="unlimitedClips">
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+        </div>
+
+        <!-- Simple Tactic -->
+        <div class="form-group">
+            <label for="simpleTactic">Simple Tactic</label>
+            <input type="text" class="form-control" id="simpleTactic">
+        </div>
+
+        <!-- Objective -->
+        <div class="form-group">
+            <label for="objective">Objective</label>
+            <select class="form-control" id="objective">
+                <option>Increase Sales</option>
+                <option>Drive Trial</option>
+                <option>Build Brand Awareness</option>
+            </select>
+        </div>
+
+        <!-- Est. Distribution Qty. and Actual Distribution Qty -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="estDistributionQty">Est. Distribution Qty.</label>
+                <input type="number" class="form-control" id="estDistributionQty">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualDistributionQty">Actual Distribution Qty</label>
+                <input type="number" class="form-control readonly-input" id="actualDistributionQty" readonly>
+            </div>
+        </div>
+
+        <!-- Est. Red. % and Actual Red. % -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="estRedPerc">Est. Red. %</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="estRedPerc">
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualRedPerc">Actual Red. %</label>
+                <div class="input-group">
+                    <input type="number" class="form-control readonly-input" id="actualRedPerc" readonly>
+                    <div class="input-group-append">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Est. # of cpns redeemed and Actual # of cpns redeemed -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="estCpnsRedeemed">Est. # of cpns redeemed</label>
+                <input type="number" class="form-control readonly-input" id="estCpnsRedeemed" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualCpnsRedeemed">Actual # of cpns redeemed</label>
+                <input type="number" class="form-control readonly-input" id="actualCpnsRedeemed" readonly>
+            </div>
+        </div>
+
+        <!-- Est. Units Moved TOTAL and Actual Units Moved TOTAL -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="estUnitsMovedTotal">Est. Units Moved TOTAL</label>
+                <input type="number" class="form-control readonly-input" id="estUnitsMovedTotal" readonly>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualUnitsMovedTotal">Actual Units Moved TOTAL</label>
+                <input type="number" class="form-control readonly-input" id="actualUnitsMovedTotal" readonly>
+            </div>
+        </div>
+
+        <!-- Est. BTL Cost and Actual BTL Cost -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="estBTLCost">Est. BTL Cost</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control" id="estBTLCost">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualBTLCost">Actual BTL Cost</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="actualBTLCost" readonly>
+                </div>
+            </div>
+        </div>
+
+        <!-- Est. ATL Cost and Actual ATL Cost -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="estATLCost">Est. ATL Cost</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="estATLCost" readonly>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualATLCost">Actual ATL Cost</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="actualATLCost" readonly>
+                </div>
+            </div>
+        </div>
+
+        <!-- Est. TOTAL Cost and Actual TOTAL Cost -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="estTotalCost">Est. TOTAL Cost</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="estTotalCost" readonly>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualTotalCost">Actual TOTAL Cost</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="actualTotalCost" readonly>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Benchmark CPUM and Actual CPUM -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="benchmarkCPUM">Benchmark CPUM</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="benchmarkCPUM" readonly>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="actualCPUM">Actual CPUM</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="actualCPUM" readonly>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Sales and Incremental Sales -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="totalSales">Total Sales</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="totalSales" readonly>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="incrementalSales">Incremental Sales</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="incrementalSales" readonly>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benchmark ROPS/ROAS and ROPS/ROAS -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="benchmarkROPSROAS">Benchmark ROPS/ROAS</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="benchmarkROPSROAS" readonly>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="ropsRoas">ROPS/ROAS</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="ropsRoas" readonly>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benchmark iROPS/iROAS and iROPS/iROAS -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="benchmarkIROPSIROAS">Benchmark iROPS/iROAS</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="benchmarkIROPSIROAS" readonly>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="iROPSIROAS">iROPS/iROAS</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control readonly-input" id="iROPSIROAS" readonly>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

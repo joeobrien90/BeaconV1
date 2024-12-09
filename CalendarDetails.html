@@ -1,0 +1,606 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Count</title>
+    <!-- Bootstrap CSS from Bootswatch Cerulean Theme -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .category-header {
+            background-color: #e9ecef;
+        }
+        .unit-header {
+            background-color: #f8f9fa; /* Different shade of grey */
+        }
+        .offer-cell {
+            text-align: center;
+            color: #333;
+        }
+        
+        th {
+            background-color: #eee;
+        }
+        .offer-list {
+        //list-style-type: none;
+        //list-style: none;
+            padding-left: 8px;
+        //margin-left: 0;
+            text-align: left;
+            font-size: x-small;
+            margin: 1px;
+        }
+        li {
+            padding-bottom: 9px;
+        }
+        h1{
+            color: black;
+        }
+
+        .draggable-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .draggable-list li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            cursor: move;
+        }
+        .icon {
+            font-size: 12px;
+            margin-right: 5px;
+        }
+        .progress-bar-estimated {
+            background-color: #ccc; /* Dark grey for estimated */
+        }
+        .header-row {
+            display: flex;
+            justify-content: space-between; /* Align header left, other section right */
+            align-items: center;
+        }
+        .right-section {
+            display: flex;
+            align-items: center;
+        }
+        .right-section > * { /* Space elements within right section */
+            margin-left: 10px;
+        }
+        .right-section > select { /* Space elements within right section */
+            width:130px;
+        }
+        .right-section > *:first-child { /* Remove margin from first element */
+            margin-left: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div >
+
+    <div class="row mb-3 header-row">  <!-- Added header-row class -->
+        <div class="col-md-4">
+            <h2>Offer Details by Month</h2>
+        </div>
+        <div class="col-md-8 ">
+            <div class="right-section justify-content-end ">  <!-- Added right-section class -->
+
+                <select class="form-control" id="modeDrop">
+                    <option value="all" selected>Details</option>
+                    <option value="digitalCoupons">Spend</option>
+                </select>
+                
+
+                <form class="form-inline">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" value="" id="yearcheck">
+                        <label class="form-check-label" for="yearcheck">
+                            Previous Year
+                        </label>
+                    </div>
+                </form>
+                <select class="form-control" id="statusDropdown">
+                    <option value="all">Status</option>
+                    <option value="digitalCoupons">Approved</option>
+                    <option value="printCoupons">Planning</option>
+                    <option value="inStoreDisplays">Contracted</option>
+                </select>
+                <button id="editButton" class="btn btn-outline-secondary">
+                    <i class="fas fa-cog"></i> Edit Groupings
+                </button>
+
+
+
+                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Edit Options</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="draggable-list" id="sortable">
+                                    <li><input type="checkbox" id="businessUnit" value="Business Unit" checked> <label for="businessUnit">Business Unit</label></li>
+                                    <li><input type="checkbox" id="marketCategory" value="Market Category" checked> <label for="marketCategory">Market Category</label></li>
+                                    <li><input type="checkbox" id="tactic" value="Tactic" checked> <label for="tactic">Tactic</label></li>
+                                    <li><input type="checkbox" id="brand" value="Brand"> <label for="brand">Brand</label></li>
+                                    <li><input type="checkbox" id="retailer" value="Retailer"> <label for="retailer">Retailer</label></li>
+                                </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="columnModal" tabindex="-1" aria-labelledby="columnModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="columnModalLabel">Select Columns</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="columnForm">
+                                    <!-- Checkboxes for columns -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="offerCode">
+                                        <label class="form-check-label" for="offerCode">Offer Code</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="status">
+                                        <label class="form-check-label" for="status">Status</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="brand">
+                                        <label class="form-check-label" for="brand">Brand</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="tactic">
+                                        <label class="form-check-label" for="tactic">Tactic</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="vendor">
+                                        <label class="form-check-label" for="vendor">Vendor</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="retailer">
+                                        <label class="form-check-label" for="retailer">Retailer</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="startDate">
+                                        <label class="form-check-label" for="startDate">Start Date</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="endDate">
+                                        <label class="form-check-label" for="endDate">End Date</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="expDate">
+                                        <label class="form-check-label" for="expDate">Exp Date</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="description">
+                                        <label class="form-check-label" for="description">Description</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="value">
+                                        <label class="form-check-label" for="value">Value</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="buyQty">
+                                        <label class="form-check-label" for="buyQty">Buy Qty</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="distQty">
+                                        <label class="form-check-label" for="distQty">Dist Qty</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="redemptPercent">
+                                        <label class="form-check-label" for="redemptPercent">Redempt %</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="numRedeemed">
+                                        <label class="form-check-label" for="numRedeemed"># Redeemed</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="numMoved">
+                                        <label class="form-check-label" for="numMoved"># Moved</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="atlCost">
+                                        <label class="form-check-label" for="atlCost">ATL Cost</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="btlCost">
+                                        <label class="form-check-label" for="btlCost">BTL Cost</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="edit">
+                                        <label class="form-check-label" for="edit">Edit</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    
+    
+
+    
+    <table class="table table-bordered">
+        <thead  class="thead-dark">
+        <tr>
+            <th>Business Unit</th>
+            <th>Market Category</th>
+            <th>Tactic</th>
+            <th>January</th>
+            <th>February</th>
+            <th>March</th>
+            <th>April</th>
+            <th>May</th>
+            <!-- Add more months as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Market Categorysiness Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="3"><i class="fas fa-minus-square"></i> BU 1</td>
+            <td rowspan="2"></i> Market Category 1</td>
+            <td class="category-header">Tactic A</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr>
+            <td class="category-header">Tactic B</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li><a>$6.00/2 Dove Men+Care MB items...</a></li>
+                    <li>$3.00/1 Dove Men+Care MB items...</li>
+                    <li>$2.00/1 Dove or Dove Men+Care...</li>
+                </ul>
+            </td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$6.00/2 Dove Men+Care MB items...</li>
+                    <li>$3.00/1 Dove Men+Care MB items...</li>
+                </ul>
+            </td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <!-- Market Categorysiness Unit 2 -->
+        <tr class="unit-header">
+            <td rowspan="1"></i> Market Category 2</td>
+            <td class="category-header">Tactic C</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$3.00/1 Olay Women+Care MB items...</li>
+                </ul></td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Market Categorysiness Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="3"><i class="fas fa-minus-square"></i> BU 2</td>
+            <td rowspan="2"></i> Market Category 3</td>
+            <td class="category-header">Tactic A</td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$3.00/1 Olay Women+Care MB items...</li>
+                </ul></td></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$3.00/1 Olay Women+Care MB items...</li>
+                </ul></td></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$3.00/1 Olay Women+Care MB items...</li>
+                </ul></td></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr>
+            <td class="category-header">Tactic B</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$1.00 off Skincare MB items...</li>
+                </ul>
+            </td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Market Categorysiness Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="1"><i class="fas fa-plus-square"></i> BU 3</td>
+            <td rowspan="1">...</td>
+            <td class="category-header">...</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$4.00/2 Shampoo Men+Care MB items...</li>
+                    <li>$4.00/1 Shampoo Men+Care MB items...</li>
+                    <li>$2.00/1 Shampoo or Dove Men+Care...</li>
+                </ul></td></td>
+            <td class="offer-cell"></td>
+        </tr>
+
+        <tr class="unit-header">
+            <td rowspan="3"><i class="fas fa-plus-square"></i> BU 4</td>
+            <td rowspan="2">Market Category 6</td>
+            <td class="category-header">Tactic G</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$7.00/2 Body Wash MB items...</li>
+                    <li>$5.00/1 Body Wash MB items...</li>
+                </ul>
+            </td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr>
+            <td class="category-header">Tactic H</td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$5.00/1 Skincare Test items...</li>
+                </ul>
+            </td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$6.00/2 Skincare HH items...</li>
+                </ul>
+            </td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <!-- Business Unit 5 -->
+        <tr class="unit-header">
+            <td rowspan="1">Market Category 7</td>
+            <td class="category-header">Tactic I</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell">
+                <ul class="offer-list">
+                    <li>$6.00/1 Skincare MB items...</li>
+                </ul>
+            </td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+    document.getElementById('modeDrop').addEventListener('change', function() {
+        //window.location.href = "http://localhost:63342/BeaconMock%20V1/Coupons/CalendarDollars.html#";
+        populateOfferCells();
+    });
+
+    document.getElementById('yearcheck').addEventListener('change', function() {
+        //window.location.href = "http://localhost:63342/BeaconMock%20V1/Coupons/CalendarDollars.html#";
+        populateOfferCellsYear();
+    });
+    
+    $(document).ready(function() {
+        // Initialize sortable list
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+
+        // Show modal on button click
+        $("#editButton").click(function() {
+            $("#editModal").modal('show');
+        });
+    });
+
+
+    function getBackgroundColor(value) {
+        const greenIntensity = Math.round((80 * value) / 100000);
+        if(value == 0){
+            return `rgb(255,255,255)`;
+        }
+        return `rgb(0,${255 - greenIntensity}, 255)`;
+    }
+
+    function getBackgroundColorLastYear(value) {
+        const greenIntensity = Math.round((80 * value) / 100000);
+        if(value == 0){
+            return `rgb(255,255,255)`;
+        }
+        return `rgb(255,255,${255 - greenIntensity})`;
+    }
+
+    // Function to populate offer cells with random values from 0 to 10
+    function populateOfferCells() {
+        const offerCells = document.querySelectorAll(".offer-cell");
+
+        offerCells.forEach(cell => {
+            // Generate random value from 0 to 10var value = 0;
+            var value = 0;
+            if (Math.floor(Math.random() * 10) <= 5) {
+                value = Math.floor(Math.random() * 100001)
+            }
+            const formattedNumber = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(value);
+            cell.textContent = formattedNumber;
+            cell.style.backgroundColor = getBackgroundColor(value);
+        });
+    }
+
+    function populateOfferCellsYear() {
+
+        var e = document.getElementById("modeDrop");
+        var text = e.options[e.selectedIndex].text;
+        if(text === "Spend")
+        {
+            populateOfferCellsYearSpend();
+            return;
+        }
+        const offerCells = document.querySelectorAll(".offer-cell");
+
+        offerCells.forEach(cell => {
+            // Generate a random number between 0 and 1
+            const randomValue = Math.random();
+
+            // Determine how many list items to add based on the random value
+            let numberOfItems;
+            if (randomValue < 0.5) {
+                numberOfItems = 0; // 50% chance to add 0 items
+            } else if (randomValue < 0.75) {
+                numberOfItems = 1; // 25% chance to add 1 item
+            } else {
+                numberOfItems = 2; // 25% chance to add 2 items
+            }
+
+            // Create a new unordered list element
+            const ul = document.createElement('ul');
+            ul.className = 'offer-list';
+
+            // Add the specified number of list items
+            for (let i = 0; i < numberOfItems; i++) {
+                const li = document.createElement('li');
+                li.style.color = 'orange'; // Set text color to orange
+                li.textContent = `$2.00/1 Skincare MB items...`;
+                ul.appendChild(li);
+            }
+
+            // Append the unordered list to the current cell
+            if (numberOfItems > 0) {
+                cell.appendChild(ul);
+            }
+        });
+    }
+
+
+    function populateOfferCellsYearSpend() {
+        const offerCells = document.querySelectorAll(".offer-cell");
+
+
+    // Iterate over each cell
+        offerCells.forEach(cell => {
+            // Store the original content and background color
+            cell.style.backgroundColor = "white";
+            const originalContent = cell.innerHTML;
+            //const originalBackgroundColor = window.getComputedStyle(cell).backgroundColor;
+
+            // Create a container to hold both halves
+            const container = document.createElement('div');
+            container.style.display = 'flex';
+            container.style.width = '100%';
+            container.style.height = '100%';
+
+            // Create the left half with a random value and color
+            const leftHalf = document.createElement('div');
+            leftHalf.style.flex = '1';
+
+            var value = 0;
+            if (Math.floor(Math.random() * 10) <= 5) {
+                value = Math.floor(Math.random() * 100001)
+            }
+            const formattedNumber = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(value);
+            leftHalf.textContent = formattedNumber;
+            //leftHalf.style.backgroundColor = getBackgroundColorLastYear(value);
+
+            // Create the right half with the original content
+            const rightHalf = document.createElement('div');
+            rightHalf.style.flex = '1';
+            rightHalf.style.backgroundColor = compareDollarAmounts(formattedNumber,originalContent);
+            rightHalf.innerHTML = originalContent;
+
+            // Append both halves to the container
+            container.appendChild(leftHalf);
+            container.appendChild(rightHalf);
+
+            // Replace the cell's content with the container
+            cell.innerHTML = '';
+            cell.appendChild(container);
+        });
+    }
+
+
+    function compareDollarAmounts(amount1, amount2) {
+        // Helper function to parse dollar amount strings to numbers
+        function parseDollarAmount(amount) {
+            return parseFloat(amount.replace(/[^0-9.-]+/g, ""));
+        }
+        // Parse the input dollar amounts
+        const value1 = parseDollarAmount(amount1);
+        const value2 = parseDollarAmount(amount2);
+
+        // Calculate the difference
+        const difference = value2 - value1;
+
+        // Determine the color based on the difference
+        let color;
+        if (difference > 0) {
+            color = `rgb(160, 255, 160)`;
+        } else {
+            color = `rgb(255, 131, 131)`;
+        }
+        if (difference === 0) {
+            color = "white";
+        }
+
+        return color;
+    }
+
+
+
+</script>
+
+</body>
+</html>
+
+
+

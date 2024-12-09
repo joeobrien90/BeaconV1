@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Count</title>
+    <!-- Bootstrap CSS from Bootswatch Cerulean Theme -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .category-header {
+            background-color: #e9ecef;
+        }
+        .unit-header {
+            background-color: #f8f9fa; /* Different shade of grey */
+        }
+        .offer-cell {
+            text-align: center;
+            color: #333;
+        }
+        th {
+            background-color: #eee;
+        }
+        h1{
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="">
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto">
+            <h1>Offer Count by Month</h1>
+        </div>
+        <div class="col-auto">
+            <form class="form-inline">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="options" id="detailsOption" value="details">
+                    <label class="form-check-label" for="detailsOption">Details</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="options" id="countOption" value="count" checked>
+                    <label class="form-check-label" for="countOption">Count</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="options" id="dollarsOption" value="dollars">
+                    <label class="form-check-label" for="dollarsOption">Dollars</label>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table table-bordered">
+        <thead  class="thead-dark">
+        <tr>
+            <th>Business Unit</th>
+            <th>Market Category</th>
+            <th>Tactic</th>
+            <th>January</th>
+            <th>February</th>
+            <th>March</th>
+            <th>April</th>
+            <th>May</th>
+            <!-- Add more months as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Market Categorysiness Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="3"><i class="fas fa-minus-square"></i> BU 1</td>
+            <td rowspan="2"></i> Market Category 1</td>
+            <td class="category-header">Tactic A</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr>
+            <td class="category-header">Tactic B</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <!-- Market Categorysiness Unit 2 -->
+        <tr class="unit-header">
+            <td rowspan="1"></i> Market Category 2</td>
+            <td class="category-header">Tactic C</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Market Categorysiness Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="3"><i class="fas fa-minus-square"></i> BU 2</td>
+            <td rowspan="2"></i> Market Category 3</td>
+            <td class="category-header">Tactic A</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        <tr>
+            <td class="category-header">Tactic B</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Market Categorysiness Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="1"><i class="fas fa-plus-square"></i> BU 3</td>
+            <td rowspan="1">...</td>
+            <td class="category-header">...</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+
+
+    document.getElementById('dollarsOption').addEventListener('change', function() {
+        window.location.href = "http://localhost:63342/BeaconMock%20V1/Coupons/CalendarDollars.html#";
+    });
+    // Function to get background color based on value
+    function getBackgroundColor(value) {
+        const greenIntensity = Math.round((115 * value) / 10);
+        return `rgb(${255 - greenIntensity}, 255, ${255 - greenIntensity})`;
+    }
+
+    // Function to populate offer cells with random values from 0 to 10
+    function populateOfferCells() {
+        const offerCells = document.querySelectorAll(".offer-cell");
+
+        offerCells.forEach(cell => {
+            // Generate random value from 0 to 10
+            var value = 0;
+            if (Math.floor(Math.random() * 10) <= 5) {
+                value = Math.floor(Math.random() * 11);
+            }
+            cell.textContent = value;
+            cell.style.backgroundColor = getBackgroundColor(value);
+        });
+    }
+
+    // Populate cells on page load
+    document.addEventListener("DOMContentLoaded", populateOfferCells);
+</script>
+</body>
+</html>
+
+
+

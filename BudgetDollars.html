@@ -1,0 +1,364 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Count</title>
+    <!-- Bootstrap CSS from Bootswatch Cerulean Theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .category-header {
+            background-color: #f8f9fa;
+        }
+        .unit-header {
+            background-color: #e9ecef; /* Different shade of grey */
+        }
+        .total-row {
+            font-weight: bold;
+        }
+        .offer-cell {
+            text-align: left;
+            color: #333;
+            font-size: x-small;
+
+            border: 1px solid #ccc;
+            padding: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        th {
+            background-color: #eee;
+        }
+        .table td {
+            padding: 0.55rem;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between; /* Align header left, other section right */
+            align-items: center;
+        }
+        .right-section {
+            display: flex;
+            align-items: center;
+        }
+        .right-section > * { /* Space elements within right section */
+            margin-left: 10px;
+        }
+        .right-section > select { /* Space elements within right section */
+            width:130px;
+        }
+        .right-section > *:first-child { /* Remove margin from first element */
+            margin-left: 0;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            white-space: nowrap;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .offer-cell:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+<div >
+    <div class="row mb-3 header-row">  <!-- Added header-row class -->
+        <div class="col-md-4">
+            <h2>Spend</h2>
+        </div>
+        <div class="col-md-8 ">
+            <div class="right-section justify-content-end ">  <!-- Added right-section class -->
+                <div>
+                    <input id="startDate2" class="form-control" type="date" value="2024-02-01"/>
+                </div>
+                <div>to</div>
+                <div>
+                    <input id="endDate2" class="form-control" type="date" value="2024-10-26"/>
+                </div>
+                <select class="form-control btn-secondary" id="statusDropdown">
+                    <option value="all">Tactic</option>
+                    <option value="digitalCoupons">Brand</option>
+                    <option value="printCoupons">BU</option>
+                    <option value="inStoreDisplays">Market Category</option>
+                </select>
+                <div> vs </div>
+                <select class="form-control  btn-secondary" id="statusDropdown">
+                    <option value="all">Business Unit</option>
+                    <option value="digitalCoupons">Brand</option>
+                    <option value="printCoupons">BU</option>
+                    <option value="inStoreDisplays">Market Category</option>
+                </select>
+                <select class="form-control" id="statusDropdown">
+                    <option value="all">Status</option>
+                    <option value="digitalCoupons">Approved</option>
+                    <option value="printCoupons">Planning</option>
+                    <option value="inStoreDisplays">Contracted</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead  class="thead-dark">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>PC</th>
+            <th>B&W</th>
+            <th>Nutrition</th>
+            <th>Ice Cream</th>
+            <th>Home Care</th>
+            <th>Totals</th>
+            <th>% of Total</th>
+            <!-- Add more months as needed -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Example Data Structure -->
+        <!-- Business Unit 1 -->
+        <tr class="unit-header">
+            <td rowspan="1"> FSI</td>
+            <td class="category-header"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="1">20%</td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="1"> Digital Cpns</td>
+            <td class="category-header"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="1">5%</td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="1"> Ibotta</td>
+            <td class="category-header"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="1">10%</td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="1"> Fetch</td>
+            <td class="category-header"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="1">24%</td>
+        </tr>
+        <tr class="unit-header">
+            <td rowspan="1"> InStore</td>
+            <td class="category-header"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="1">5%</td>
+        </tr>
+        <tr class="unit-header total-row">
+            <td rowspan="2"> BU Total</td>
+            <td class="category-header">BTL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td rowspan="1">20%</td>
+        </tr>
+        <tr class="unit-header total-row">
+            <td class="category-header">ATL</td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+            <td class="offer-cell"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="" style="margin-top:80px;">
+    <div class="col-md-7">
+        <h2>Spend by Segment</h2>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label for="tactic">Segment:</label>
+            <select id="tactic" class="form-control">
+                <option value="tactic" checked>Tactic</option>
+                <option value="market-category">Market Category</option>
+                <option value="business-unit">Business Unit</option>
+                <option value="brand">Brand</option>
+                <option value="retailer">Retailer</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="status">Status:</label>
+            <select id="status" class="form-control">
+                <option value="open" selected>Open</option>
+                <option value="closed">Closed</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" class="form-control">
+        </div>
+    </div>
+
+    <canvas id="myBarChart" width="400" height="200"></canvas>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Function to get background color based on value
+    function getBackgroundColor(value) {
+        const greenIntensity = Math.round((120 * value) / 100000);
+        if(value == 0){
+            return `rgb(255,255,255)`;
+        }
+        return `rgb(255,${255 - greenIntensity}, 150)`;
+    }
+
+    // Function to populate offer cells with random values from 0 to 10
+    function populateOfferCells() {
+        const offerCells = document.querySelectorAll(".offer-cell");
+
+        offerCells.forEach(cell => {
+            // Generate random value from 0 to 10var value = 0;
+            var value = 0;
+            if (Math.floor(Math.random() * 10) <= 6) {
+                value = Math.floor(Math.random() * 100001)
+            }
+            const formattedNumber = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(value);
+            cell.textContent = formattedNumber;
+            cell.style.backgroundColor = getBackgroundColor(value);
+
+        });
+    }
+
+
+    // Populate cells on page load
+    document.addEventListener("DOMContentLoaded", populateOfferCells);
+
+    document.querySelectorAll('.offer-cell').forEach(cell => {
+        cell.addEventListener('mouseenter', function() {
+            
+            const value = parseFloat(this.innerHTML.replace(/[^0-9.-]+/g, ""));
+            const atlValue = Math.floor(Math.random() * value);
+            
+            const btlValue = value - atlValue;
+
+            let tooltip = this.querySelector('.tooltip');
+            if (!tooltip) {
+                
+                tooltip = document.createElement('span');
+                tooltip.className = 'tooltip';
+                this.appendChild(tooltip);
+            }
+
+            tooltip.textContent = `ATL: $${atlValue}, BTL: $${btlValue}`;
+        });
+
+        cell.addEventListener('mouseleave', function() {
+            const tooltip = this.querySelector('.tooltip');
+            if (tooltip) {
+                tooltip.remove();
+            }
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myBarChart').getContext('2d');
+    const myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['FSI', 'Digital Coupons', 'Fetch', 'Ibotta'],
+            datasets: [
+                {
+                    label: 'ATL',
+                    data: [3000000, 1500000, 4000000, 2500000], // Mock ATL data
+                    backgroundColor: [
+                        '#99e6ff', // FSI
+                        '#1D8348', // Digital Coupons
+                        '#1F618D', // Fetch
+                        '#9fdfbf'  // Ibotta
+                    ]
+                },
+                {
+                    label: 'BTL',
+                    data: [2000000, 1500000, 3000000, 3500000], // Mock BTL data
+                    backgroundColor: [
+                        '#66d9ff', // FSI
+                        '#196F3D', // Digital Coupons
+                        '#154360', // Fetch
+                        '#79d2a6'  // Ibotta
+                    ]
+                }
+            ]
+        },
+        options: {
+            legend: { display: false },
+            scales: {
+                x: {
+                    stacked: true
+                },
+                y: {
+                    beginAtZero: true,
+                    max: 10000000,
+                    stacked: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
